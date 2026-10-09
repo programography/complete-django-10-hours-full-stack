@@ -1,0 +1,59 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Login{% endblock title %}
+
+{% block t %}
+
+<link rel="stylesheet" href="/static/mycss/signup_page.css">
+
+<div style="margin-top: 2%; background-color: yellow;">
+    <ul class="nav nav-pills nav-justified">
+
+        <li class="nav-item">
+            <a class="nav-link" href="/signup">Signup</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/login">Login</a>
+        </li>
+
+        </li>
+    </ul>
+</div>
+
+<div class="row main_signup_div">
+    <div class="col-6">
+
+        <div class="signup_form">
+            <h2>Login Here</h2>
+            <form action="/login" method="post">
+                {% csrf_token %}
+                <div style="padding: 3% 0%; margin-bottom: 13px;">
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" placeholder="enter usernmae.." required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="enter your password.."
+                            required>
+                    </div>
+
+
+                    <div>
+                        <button style="padding: 1% 13%;" type="submit" class="btn btn-danger">Login </button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="col-5">
+        <img style="position: absolute;" src="/static/images/bird.png" alt="">
+    </div>
+</div>
+
+
+{% endblock t %}

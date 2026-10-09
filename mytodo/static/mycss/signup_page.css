@@ -1,0 +1,22 @@
+ .main_signup_div{
+            margin: 1% 14%;
+    border: 3px solid red;
+    padding: 1%;
+    border-radius: 14px;
+    background: yellow;
+    }
+
+    .signup_form{
+            background-color: #ff000047;
+    padding: 2%;
+    border: 1px solid;
+    border-radius: 15px;
+    box-shadow: 6px 7px 7px 2px black;
+    }
+
+    h2{    text-align: center;
+    color: yellow;
+    background-color: red;
+    padding: 1%;
+    border-radius: 12px;
+    margin-bottom: 15px;}

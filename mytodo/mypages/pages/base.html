@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}{% endblock title %}
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body
+    style="background: #22C1C3; background: linear-gradient(0deg,rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 94%);">
+
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="https://todo.ltd/wp-content/uploads/2026/06/todo-parner-logo-gold.webp" alt="Logo" width="100"
+                    height="30" class="d-inline-block align-text-top">
+                TodoApp
+            </a>
+
+            {% if user.is_authenticated %}
+            <div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        {{request.user}}
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            {% else %}
+
+            <div>
+                <a href="/signup">
+                    <button type="button" class="btn btn-success">Signup</button>
+                </a>
+
+                <a href="/login">
+                    <button type="button" class="btn btn-danger">Login</button>
+                </a>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+    </nav>
+
+    {% if messages %}
+    <div style="padding: 1%; position: absolute; margin-left: 61%;">
+        {% for msg in messages %}
+        <div class="alert alert-{{msg.tags}} alert-dismissible fade show" role="alert">
+            <strong>{{request.user}}!</strong> {{msg.message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block t %}{% endblock t %}
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

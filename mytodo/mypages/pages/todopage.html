@@ -1,0 +1,239 @@
+{% extends "pages/base.html" %}
+
+{% block title %}HomePage{% endblock title %}
+
+{% block t %}
+
+<style>
+    .mian_div {
+        margin: 1% 9%;
+        border: 2px solid red;
+        background-color: #56ff56;
+        padding: 1%;
+        border-radius: 14px;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 14px;
+        background-color: red;
+        color: #56ff56;
+        border-radius: 15px;
+        padding: 1%;
+        font-family: system-ui;
+    }
+
+    .inner_div {
+        padding: 1%;
+        background: red;
+        border-radius: 16px;
+        border: 4px solid yellow;
+        box-shadow: 7px 7px 5px 5px black;
+        margin-bottom: 14px;
+    }
+
+    .form-label {
+        color: #56ff56;
+    }
+
+    .todo_button {
+        padding: 1% 10%;
+        background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+    }
+
+    .btn_groupp{
+            display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 12px;
+    }
+
+    .pr_tag{
+            position: absolute;
+    margin-left: 75%;
+    margin-top: -14px;
+    }
+
+    h4{
+    border-radius: 14px;
+    font-size: 20px;
+    border: 4px solid yellow;
+    }
+</style>
+
+{% if u_todo %}
+<div class="mian_div">
+    <h2>Update your todo</h2>
+
+    <div class="inner_div">
+
+        <form action="/update-todo-now/{{u_todo.id}}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="t" value="{{u_todo.title}}" class="form-control" placeholder="todo title..">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select" aria-label="Default select example" name="p">
+                            <option >Choose Priority</option>
+                            <option {% if u_todo.priority == "Low" %}selected{% endif %} value="Low">Low</option>
+                            <option {% if u_todo.priority == "Medium" %}selected{% endif %} value="Medium">Medium</option>
+                            <option {% if u_todo.priority == "High" %}selected{% endif %} value="High">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label class="form-label">Upload Todo Pic</label>
+                        <input type="file" name="img" class="form-control" placeholder="todo title..">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descripion</label>
+                <textarea class="form-control" name="desc" rows="3" placeholder="Enter a brif description..">{{u_todo.description}}</textarea>
+            </div>
+
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-success todo_button">Update Todo</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% else %}
+
+<div class="mian_div">
+    <h2>Add New Todo</h2>
+
+    <div class="inner_div">
+
+        <form action="/save-new-todo" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input type="text" name="t" class="form-control" placeholder="todo title..">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label class="form-label">Priority</label>
+                        <select class="form-select" aria-label="Default select example" name="p">
+                            <option selected>Choose Priority</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label class="form-label">Upload Todo Pic</label>
+                        <input type="file" name="img" class="form-control" placeholder="todo title..">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descripion</label>
+                <textarea class="form-control" name="desc" rows="3" placeholder="Enter a brif description.."></textarea>
+            </div>
+
+            <div style="text-align: center;">
+                <button type="submit" class="btn btn-success todo_button">Add Todo</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+
+<div class="mian_div">
+    <h2>Our Todos</h2>
+
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <form class="d-flex" role="search" style="margin-bottom: 13px;">
+                <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search" />
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <div class="inner_div">
+        <div class="row">
+
+            {% for todo in todos %}
+            <div class="col-4">
+                <div class="card mb-3" style="max-width: 540px; {% if todo.is_deleted %}
+            background-color : lightgreen
+            {% endif %};">
+                    <div class="pr_tag">
+                        <h4 style = "background: 
+                        
+                            {% if todo.priority == 'High' %}red{% endif %}
+                            {% if todo.priority == 'Low' %}yellow{% endif %}
+                            {% if todo.priority == 'Medium' %}green{% endif %}
+                        
+                        ;"
+                        
+                        
+                        
+                        >{{todo.priority}}</h4>
+                    </div>
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="media/{{todo.todo_pic}}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{todo.title}}</h5>
+                                <p class="card-text">{{todo.description}}.</p>
+                                <p class="card-text"><small class="text-body-secondary"><strong>On :
+                                        </strong>{{todo.craeted_at}}</small>
+                                </p>
+                            </div>
+                        </div>
+                        <hr>
+                        {% if todo.is_deleted %}
+
+                        {% else %}
+                        <div class="btn_groupp">
+                            <div>
+                                <a href="/?id={{todo.id}}">
+                                    <button class="btn btn-info" type="submit">Update</button>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/todo-done/{{todo.id}}">
+                                    <button class="btn btn-success" type="submit">Done</button>
+                                </a>
+                            </div>
+                            <div>
+                                <a href="/delete-todo/{{todo.id}}">
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </a>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock t %}

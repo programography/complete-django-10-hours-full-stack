@@ -1,0 +1,105 @@
+{% extends "pages/base.html" %}
+
+{% block title %}Signup{% endblock title %}
+
+{% block t %}
+
+<style>
+    .main_signup_div {
+        margin: 1% 14%;
+        border: 3px solid red;
+        padding: 1%;
+        border-radius: 14px;
+        background: yellow;
+    }
+
+    .signup_form {
+        background-color: #ff000047;
+        padding: 2%;
+        border: 1px solid;
+        border-radius: 15px;
+        box-shadow: 6px 7px 7px 2px black;
+    }
+
+    h2 {
+        text-align: center;
+        color: yellow;
+        background-color: red;
+        padding: 1%;
+        border-radius: 12px;
+        margin-bottom: 15px;
+    }
+</style>
+
+
+<div style="margin-top: 2%; background-color: yellow;">
+    <ul class="nav nav-pills nav-justified">
+
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/signup">Signup</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/login">Login</a>
+        </li>
+
+        </li>
+    </ul>
+</div>
+
+<div class="row main_signup_div">
+    <div class="col-6">
+
+        <div class="signup_form">
+            <h2>Sign Up</h2>
+            <form action="/sign-up-here" method="post">
+                {% csrf_token %}
+                <div style="padding: 3% 0%; margin-bottom: 13px;">
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="uname" class="form-control" placeholder="enter usernmae.." required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" name="f_name" class="form-control" placeholder="enter your full name.."
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="enter your email id"
+                            required>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="p" class="form-control" placeholder="enter your password.."
+                            required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" name="cp" class="form-control" placeholder="confirm you password.."
+                            required>
+                    </div>
+
+                    <div>
+                        <button style="padding: 1% 13%;" type="submit" class="btn btn-danger">Signup</button>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="col-5">
+        <img style="    width: 144%;"
+            src="https://static.vecteezy.com/system/resources/previews/029/726/216/non_2x/3d-purple-illustration-icon-of-using-smartphone-for-sign-up-or-login-to-profile-account-with-security-padlock-side-free-png.png"
+            alt="">
+    </div>
+</div>
+
+
+{% endblock t %}
