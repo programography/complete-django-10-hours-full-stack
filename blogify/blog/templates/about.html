@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+
+
+
+{% block main %}
+
+
+{% include 'components/learn_comp.html' with xyz="About Us" data="My About Page" %}
+
+
+{% include 'components/subscribe.html' %}
+
+<h1>this is my about us page...</h1>
+
+{% include 'components/subscribe.html' %}
+
+{% endblock main %}
+
+
+
+
+
+
+
+
+{% block mytitle %}About Us{% endblock mytitle %}
